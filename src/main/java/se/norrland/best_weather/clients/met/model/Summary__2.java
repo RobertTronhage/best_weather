@@ -1,8 +1,7 @@
 
-package se.norrland.best_weather.clients.SMHI;
+package se.norrland.best_weather.clients.met.model;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,36 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "validTime",
-    "parameters"
+    "symbol_code"
 })
-public class TimeSeries {
+public class Summary__2 {
 
-    @JsonProperty("validTime")
-    private String validTime;
-    @JsonProperty("parameters")
-    private List<Parameter> parameters;
+    @JsonProperty("symbol_code")
+    private String symbolCode;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("validTime")
-    public String getValidTime() {
-        return validTime;
+    @JsonProperty("symbol_code")
+    public String getSymbolCode() {
+        return symbolCode;
     }
 
-    @JsonProperty("validTime")
-    public void setValidTime(String validTime) {
-        this.validTime = validTime;
-    }
-
-    @JsonProperty("parameters")
-    public List<Parameter> getParameters() {
-        return parameters;
-    }
-
-    @JsonProperty("parameters")
-    public void setParameters(List<Parameter> parameters) {
-        this.parameters = parameters;
+    @JsonProperty("symbol_code")
+    public void setSymbolCode(String symbolCode) {
+        this.symbolCode = symbolCode;
     }
 
     @JsonAnyGetter

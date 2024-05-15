@@ -1,7 +1,8 @@
 
-package se.norrland.best_weather.clients.MET;
+package se.norrland.best_weather.clients.smhi.model;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,23 +13,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "precipitation_amount"
+    "validTime",
+    "parameters"
 })
-public class Details__3 {
+public class TimeSeries {
 
-    @JsonProperty("precipitation_amount")
-    private Integer precipitationAmount;
+    @JsonProperty("validTime")
+    private String validTime;
+    @JsonProperty("parameters")
+    private List<Parameter> parameters;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("precipitation_amount")
-    public Integer getPrecipitationAmount() {
-        return precipitationAmount;
+    @JsonProperty("validTime")
+    public String getValidTime() {
+        return validTime;
     }
 
-    @JsonProperty("precipitation_amount")
-    public void setPrecipitationAmount(Integer precipitationAmount) {
-        this.precipitationAmount = precipitationAmount;
+    @JsonProperty("validTime")
+    public void setValidTime(String validTime) {
+        this.validTime = validTime;
+    }
+
+    @JsonProperty("parameters")
+    public List<Parameter> getParameters() {
+        return parameters;
+    }
+
+    @JsonProperty("parameters")
+    public void setParameters(List<Parameter> parameters) {
+        this.parameters = parameters;
     }
 
     @JsonAnyGetter

@@ -1,5 +1,5 @@
 
-package se.norrland.best_weather.clients.MET;
+package se.norrland.best_weather.clients.met.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -15,84 +15,97 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "air_pressure_at_sea_level",
     "air_temperature",
     "cloud_area_fraction",
+    "precipitation_amount",
     "relative_humidity",
     "wind_from_direction",
     "wind_speed"
 })
-public class Details {
+public class Units {
 
     @JsonProperty("air_pressure_at_sea_level")
-    private Double airPressureAtSeaLevel;
+    private String airPressureAtSeaLevel;
     @JsonProperty("air_temperature")
-    private Double airTemperature;
+    private String airTemperature;
     @JsonProperty("cloud_area_fraction")
-    private Double cloudAreaFraction;
+    private String cloudAreaFraction;
+    @JsonProperty("precipitation_amount")
+    private String precipitationAmount;
     @JsonProperty("relative_humidity")
-    private Double relativeHumidity;
+    private String relativeHumidity;
     @JsonProperty("wind_from_direction")
-    private Double windFromDirection;
+    private String windFromDirection;
     @JsonProperty("wind_speed")
-    private Double windSpeed;
+    private String windSpeed;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
     @JsonProperty("air_pressure_at_sea_level")
-    public Double getAirPressureAtSeaLevel() {
+    public String getAirPressureAtSeaLevel() {
         return airPressureAtSeaLevel;
     }
 
     @JsonProperty("air_pressure_at_sea_level")
-    public void setAirPressureAtSeaLevel(Double airPressureAtSeaLevel) {
+    public void setAirPressureAtSeaLevel(String airPressureAtSeaLevel) {
         this.airPressureAtSeaLevel = airPressureAtSeaLevel;
     }
 
     @JsonProperty("air_temperature")
-    public Double getAirTemperature() {
+    public String getAirTemperature() {
         return airTemperature;
     }
 
     @JsonProperty("air_temperature")
-    public void setAirTemperature(Double airTemperature) {
+    public void setAirTemperature(String airTemperature) {
         this.airTemperature = airTemperature;
     }
 
     @JsonProperty("cloud_area_fraction")
-    public Double getCloudAreaFraction() {
+    public String getCloudAreaFraction() {
         return cloudAreaFraction;
     }
 
     @JsonProperty("cloud_area_fraction")
-    public void setCloudAreaFraction(Double cloudAreaFraction) {
+    public void setCloudAreaFraction(String cloudAreaFraction) {
         this.cloudAreaFraction = cloudAreaFraction;
     }
 
+    @JsonProperty("precipitation_amount")
+    public String getPrecipitationAmount() {
+        return precipitationAmount;
+    }
+
+    @JsonProperty("precipitation_amount")
+    public void setPrecipitationAmount(String precipitationAmount) {
+        this.precipitationAmount = precipitationAmount;
+    }
+
     @JsonProperty("relative_humidity")
-    public Double getRelativeHumidity() {
+    public String getRelativeHumidity() {
         return relativeHumidity;
     }
 
     @JsonProperty("relative_humidity")
-    public void setRelativeHumidity(Double relativeHumidity) {
+    public void setRelativeHumidity(String relativeHumidity) {
         this.relativeHumidity = relativeHumidity;
     }
 
     @JsonProperty("wind_from_direction")
-    public Double getWindFromDirection() {
+    public String getWindFromDirection() {
         return windFromDirection;
     }
 
     @JsonProperty("wind_from_direction")
-    public void setWindFromDirection(Double windFromDirection) {
+    public void setWindFromDirection(String windFromDirection) {
         this.windFromDirection = windFromDirection;
     }
 
     @JsonProperty("wind_speed")
-    public Double getWindSpeed() {
+    public String getWindSpeed() {
         return windSpeed;
     }
 
     @JsonProperty("wind_speed")
-    public void setWindSpeed(Double windSpeed) {
+    public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
     }
 

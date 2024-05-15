@@ -1,5 +1,5 @@
 
-package se.norrland.best_weather.clients.MET;
+package se.norrland.best_weather.clients.met.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "symbol_code"
 })
-public class Summary__1 {
+public class Summary {
 
     @JsonProperty("symbol_code")
     private String symbolCode;

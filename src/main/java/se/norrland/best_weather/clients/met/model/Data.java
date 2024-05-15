@@ -1,5 +1,5 @@
 
-package se.norrland.best_weather.clients.MET;
+package se.norrland.best_weather.clients.met.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,5 +1,5 @@
 
-package se.norrland.best_weather.clients.MET;
+package se.norrland.best_weather.clients.met.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,23 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "precipitation_amount"
+    "time",
+    "data"
 })
-public class Details__2 {
+public class Timeseries {
 
-    @JsonProperty("precipitation_amount")
-    private Integer precipitationAmount;
+    @JsonProperty("time")
+    private String time;
+    @JsonProperty("data")
+    private Data data;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("precipitation_amount")
-    public Integer getPrecipitationAmount() {
-        return precipitationAmount;
+    @JsonProperty("time")
+    public String getTime() {
+        return time;
     }
 
-    @JsonProperty("precipitation_amount")
-    public void setPrecipitationAmount(Integer precipitationAmount) {
-        this.precipitationAmount = precipitationAmount;
+    @JsonProperty("time")
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    @JsonProperty("data")
+    public Data getData() {
+        return data;
+    }
+
+    @JsonProperty("data")
+    public void setData(Data data) {
+        this.data = data;
     }
 
     @JsonAnyGetter

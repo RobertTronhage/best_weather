@@ -1,4 +1,4 @@
-package se.norrland.best_weather.clients;
+package se.norrland.best_weather.clients.met;
 
 public class MetClient {
     //Klient för MET

@@ -1,8 +1,7 @@
 
-package se.norrland.best_weather.clients.MET;
+package se.norrland.best_weather.clients.met.model;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,36 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "meta",
-    "timeseries"
+    "summary",
+    "details"
 })
-public class Properties {
+public class Next1Hours {
 
-    @JsonProperty("meta")
-    private Meta meta;
-    @JsonProperty("timeseries")
-    private List<Timeseries> timeseries;
+    @JsonProperty("summary")
+    private Summary__1 summary;
+    @JsonProperty("details")
+    private Details__2 details;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("meta")
-    public Meta getMeta() {
-        return meta;
+    @JsonProperty("summary")
+    public Summary__1 getSummary() {
+        return summary;
     }
 
-    @JsonProperty("meta")
-    public void setMeta(Meta meta) {
-        this.meta = meta;
+    @JsonProperty("summary")
+    public void setSummary(Summary__1 summary) {
+        this.summary = summary;
     }
 
-    @JsonProperty("timeseries")
-    public List<Timeseries> getTimeseries() {
-        return timeseries;
+    @JsonProperty("details")
+    public Details__2 getDetails() {
+        return details;
     }
 
-    @JsonProperty("timeseries")
-    public void setTimeseries(List<Timeseries> timeseries) {
-        this.timeseries = timeseries;
+    @JsonProperty("details")
+    public void setDetails(Details__2 details) {
+        this.details = details;
     }
 
     @JsonAnyGetter
