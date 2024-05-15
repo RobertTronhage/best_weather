@@ -1,7 +1,8 @@
 
-package se.norrland.best_weather.MET;
+package se.norrland.best_weather.clients.MET;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,23 +13,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "symbol_code"
+    "type",
+    "coordinates"
 })
-public class Summary {
+public class Geometry {
 
-    @JsonProperty("symbol_code")
-    private String symbolCode;
+    @JsonProperty("type")
+    private String type;
+    @JsonProperty("coordinates")
+    private List<Double> coordinates;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("symbol_code")
-    public String getSymbolCode() {
-        return symbolCode;
+    @JsonProperty("type")
+    public String getType() {
+        return type;
     }
 
-    @JsonProperty("symbol_code")
-    public void setSymbolCode(String symbolCode) {
-        this.symbolCode = symbolCode;
+    @JsonProperty("type")
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @JsonProperty("coordinates")
+    public List<Double> getCoordinates() {
+        return coordinates;
+    }
+
+    @JsonProperty("coordinates")
+    public void setCoordinates(List<Double> coordinates) {
+        this.coordinates = coordinates;
     }
 
     @JsonAnyGetter

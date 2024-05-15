@@ -1,7 +1,8 @@
 
-package se.norrland.best_weather.MET;
+package se.norrland.best_weather.clients.MET;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,36 +13,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "updated_at",
-    "units"
+    "meta",
+    "timeseries"
 })
-public class Meta {
+public class Properties {
 
-    @JsonProperty("updated_at")
-    private String updatedAt;
-    @JsonProperty("units")
-    private Units units;
+    @JsonProperty("meta")
+    private Meta meta;
+    @JsonProperty("timeseries")
+    private List<Timeseries> timeseries;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("updated_at")
-    public String getUpdatedAt() {
-        return updatedAt;
+    @JsonProperty("meta")
+    public Meta getMeta() {
+        return meta;
     }
 
-    @JsonProperty("updated_at")
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    @JsonProperty("meta")
+    public void setMeta(Meta meta) {
+        this.meta = meta;
     }
 
-    @JsonProperty("units")
-    public Units getUnits() {
-        return units;
+    @JsonProperty("timeseries")
+    public List<Timeseries> getTimeseries() {
+        return timeseries;
     }
 
-    @JsonProperty("units")
-    public void setUnits(Units units) {
-        this.units = units;
+    @JsonProperty("timeseries")
+    public void setTimeseries(List<Timeseries> timeseries) {
+        this.timeseries = timeseries;
     }
 
     @JsonAnyGetter

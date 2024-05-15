@@ -1,5 +1,5 @@
 
-package se.norrland.best_weather.MET;
+package se.norrland.best_weather.clients.MET;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,36 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "time",
-    "data"
+    "summary",
+    "details"
 })
-public class Timeseries {
+public class Next6Hours {
 
-    @JsonProperty("time")
-    private String time;
-    @JsonProperty("data")
-    private Data data;
+    @JsonProperty("summary")
+    private Summary__2 summary;
+    @JsonProperty("details")
+    private Details__3 details;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("time")
-    public String getTime() {
-        return time;
+    @JsonProperty("summary")
+    public Summary__2 getSummary() {
+        return summary;
     }
 
-    @JsonProperty("time")
-    public void setTime(String time) {
-        this.time = time;
+    @JsonProperty("summary")
+    public void setSummary(Summary__2 summary) {
+        this.summary = summary;
     }
 
-    @JsonProperty("data")
-    public Data getData() {
-        return data;
+    @JsonProperty("details")
+    public Details__3 getDetails() {
+        return details;
     }
 
-    @JsonProperty("data")
-    public void setData(Data data) {
-        this.data = data;
+    @JsonProperty("details")
+    public void setDetails(Details__3 details) {
+        this.details = details;
     }
 
     @JsonAnyGetter

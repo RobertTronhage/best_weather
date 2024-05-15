@@ -1,5 +1,5 @@
 
-package se.norrland.best_weather.SMHI;
+package se.norrland.best_weather.clients.SMHI;
 
 import java.util.LinkedHashMap;
 import java.util.List;
