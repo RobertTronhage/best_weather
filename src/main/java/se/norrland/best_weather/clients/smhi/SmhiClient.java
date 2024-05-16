@@ -1,5 +1,6 @@
 package se.norrland.best_weather.clients.smhi;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import se.norrland.best_weather.clients.domain.Humidity;
@@ -27,6 +28,8 @@ public class SmhiClient implements ForecastHandler {
     public Temperature getTemperature() {
         return null;
     }
+
+
 
     @Override
     public Humidity getHumidity() {
@@ -66,7 +69,7 @@ public class SmhiClient implements ForecastHandler {
     }
 
     private Humidity extractHumidity(WeatherInfo weatherInfo) {
-        for (TimeSeries timeSeries : weatherInfo.timeSeries()) {
+        for (TimeSeries timeSeries : ) {
             for (Parameter parameter : timeSeries.parameters()) {
                 if ("r".equals(parameter.name())) {
                     Double humidityValue = parameter.values().get(0);

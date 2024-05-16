@@ -18,6 +18,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class TimeSeries {
 
+    public TimeSeries(String validTime, List<Parameter> parameters, Map<String, Object> additionalProperties) {
+        this.validTime = validTime;
+        this.parameters = parameters;
+        this.additionalProperties = additionalProperties;
+    }
+
+    public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+        this.additionalProperties = additionalProperties;
+    }
+
     @JsonProperty("validTime")
     private String validTime;
     @JsonProperty("parameters")
