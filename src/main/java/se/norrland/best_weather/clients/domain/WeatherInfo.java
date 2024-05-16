@@ -18,6 +18,6 @@ public record WeatherInfo(
     }
 
     public TimeSeries[] getTimeSeries() {
-        return
+        return null;
     }
 }
