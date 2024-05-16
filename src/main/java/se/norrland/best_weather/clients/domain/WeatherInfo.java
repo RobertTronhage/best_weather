@@ -1,6 +1,8 @@
 package se.norrland.best_weather.clients.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import se.norrland.best_weather.clients.smhi.model.TimeSeries;
+
 import java.time.LocalDateTime;
 
 public record WeatherInfo(
@@ -13,5 +15,9 @@ public record WeatherInfo(
     @Override
     public int compareTo(WeatherInfo info) {
         return temperature.compareTo(info.temperature());
+    }
+
+    public TimeSeries[] getTimeSeries() {
+        return
     }
 }
