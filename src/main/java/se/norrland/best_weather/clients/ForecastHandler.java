@@ -6,9 +6,9 @@ import se.norrland.best_weather.clients.domain.WeatherInfo;
 
 public interface ForecastHandler {
 
-    Temperature getTemperature();
+    Temperature extractTemperature();
 
-    Humidity getHumidity();
+    Humidity extractHumidity();
 
     WeatherInfo makeForecast();
 }

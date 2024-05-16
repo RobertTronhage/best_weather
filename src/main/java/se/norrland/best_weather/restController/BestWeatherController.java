@@ -1,9 +1,7 @@
 package se.norrland.best_weather.restController;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import se.norrland.best_weather.Service.BestWeather;
+import se.norrland.best_weather.util.dateTimeFormatter;
 
 @RestController
 public class BestWeatherController {
@@ -14,7 +12,10 @@ public class BestWeatherController {
 //    }
 //
 //    @GetMapping("/best-weather")
-//    public BestWeather getBestWeather() {
-//        return bestWeatherService.getBestWeather();
+//    public BestWeather getBestWeather(Model model) {
+//        String dateFormatted = dateTimeFormatter.getFormattedDateTime();
+//        model.addAttribute("dateTime", dateFormatted);
+//        model.addAttribute("bestWeather", bestWeatherService.getBestWeather() ?
+//        return "bestWeather";
 //    }
 }

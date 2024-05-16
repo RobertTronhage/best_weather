@@ -37,14 +37,14 @@ public class SmhiClient implements ForecastHandler {
                 .build();
     }
 
-    @Override
-    public Temperature getTemperature() {
-        return null;
-    }
+    public Smhi getSmhiData() {
+        Mono<Smhi> mono = client
+                .get()
+                .uri(URL)
+                .retrieve()
+                .bodyToMono(Smhi.class);
 
-    @Override
-    public Humidity getHumidity() {
-        return null;
+        return mono.block();
     }
 
     @Override
@@ -58,18 +58,6 @@ public class SmhiClient implements ForecastHandler {
 //            }
 //        }
         return null;
-    }
-
-
-
-    public Smhi getSmhiData() {
-        Mono<Smhi> mono = client
-                .get()
-                .uri(URL)
-                .retrieve()
-                .bodyToMono(Smhi.class);
-
-        return mono.block();
     }
 
     public Temperature extractTemperature() {
@@ -86,7 +74,7 @@ public class SmhiClient implements ForecastHandler {
         return null;
     }
 
-    private Humidity extractHumidity(WeatherInfo weatherInfo) {
+    public Humidity extractHumidity() {
         for (TimeSeries timeSeries : smhi.getTimeSeries()) {
             for (Parameter parameter : timeSeries.getParameters()) {
                 if ("r".equals(parameter.getName())) {
