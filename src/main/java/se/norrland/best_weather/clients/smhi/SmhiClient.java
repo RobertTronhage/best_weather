@@ -19,19 +19,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
-public class SmhiClient implements ForecastHandler {
+public class SmhiClient implements ForecastHandler<Smhi> {
 
     private static final String URL = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.0300/lat/59.3110/data.json";
     private final WebClient client;
 
-    Smhi smhi = new Smhi();
-
+    @Autowired
     public SmhiClient(WebClient.Builder webClientBuilder) {
-        this.client = webClientBuilder.baseUrl(URL).build();
-    }
-
-    public SmhiClient() {
-        client = WebClient.builder()
+        this.client = webClientBuilder
                 .baseUrl(URL)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
@@ -49,20 +44,19 @@ public class SmhiClient implements ForecastHandler {
 
     @Override
     public WeatherInfo makeForecast() {
-//        WeatherInfo weatherInfo = fetchWeatherInfo();
-//        if (weatherInfo != null) {
-//            Temperature temperature = extractTemperature(weatherInfo);
-//            Humidity humidity = extractHumidity(weatherInfo);
-//            if (temperature != null && humidity != null) {
-//                return new WeatherInfo(WeatherSrc.SMHI, temperature, humidity, LocalDateTime.now());
-//            }
-//        }
+        Smhi smhiData = getSmhiData();
+        if (smhiData != null) {
+            Temperature temperature = extractTemperature(smhiData);
+            Humidity humidity = extractHumidity(smhiData);
+            if (temperature != null && humidity != null) {
+                return new WeatherInfo(WeatherSrc.SMHI, temperature, humidity, LocalDateTime.now());
+            }
+        }
         return null;
     }
 
-    public Temperature extractTemperature() {
+    public Temperature extractTemperature(Smhi smhi) {
         smhi = getSmhiData();
-
         for (TimeSeries timeSeries : smhi.getTimeSeries()) {
             for (Parameter parameter : timeSeries.getParameters()) {
                 if ("t".equals(parameter.getName())) {
@@ -74,7 +68,7 @@ public class SmhiClient implements ForecastHandler {
         return null;
     }
 
-    public Humidity extractHumidity() {
+    public Humidity extractHumidity(Smhi smhi) {
         for (TimeSeries timeSeries : smhi.getTimeSeries()) {
             for (Parameter parameter : timeSeries.getParameters()) {
                 if ("r".equals(parameter.getName())) {
