@@ -56,7 +56,6 @@ public class SmhiClient implements ForecastHandler<Smhi> {
     }
 
     public Temperature extractTemperature(Smhi smhi) {
-        smhi = getSmhiData();
         for (TimeSeries timeSeries : smhi.getTimeSeries()) {
             for (Parameter parameter : timeSeries.getParameters()) {
                 if ("t".equals(parameter.getName())) {
