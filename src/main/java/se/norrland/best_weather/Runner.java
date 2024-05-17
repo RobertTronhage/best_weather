@@ -29,16 +29,13 @@ public class Runner implements CommandLineRunner {
     public void run(String... args) {
         Smhi smhi = client.getSmhiData();
         Temperature temp = client.extractTemperature(smhi);
+        Humidity humidity = client.extractHumidity(smhi);
         System.out.println(temp);
 
-        Humidity humidity = client.extractHumidity(smhi);
-
         WeatherInfo weatherInfo = new WeatherInfo(WeatherSrc.SMHI, temp, humidity, LocalDateTime.now());
-
         System.out.println(weatherInfo);
 
         Met met = metClient.getMetData();
-
         Temperature mtemp = metClient.extractTemperature(met);
 
         System.out.println(mtemp);
