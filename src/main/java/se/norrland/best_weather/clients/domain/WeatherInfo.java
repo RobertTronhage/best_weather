@@ -1,6 +1,8 @@
 package se.norrland.best_weather.clients.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import se.norrland.best_weather.clients.smhi.model.TimeSeries;
 
 import java.time.LocalDateTime;
