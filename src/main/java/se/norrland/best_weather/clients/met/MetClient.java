@@ -11,11 +11,10 @@ import se.norrland.best_weather.clients.domain.Humidity;
 import se.norrland.best_weather.clients.domain.Temperature;
 import se.norrland.best_weather.clients.domain.WeatherInfo;
 import se.norrland.best_weather.clients.domain.WeatherSrc;
+import se.norrland.best_weather.clients.met.model.Details;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.met.model.Timeseries;
-import se.norrland.best_weather.clients.smhi.model.Parameter;
-import se.norrland.best_weather.clients.smhi.model.Smhi;
-import se.norrland.best_weather.clients.smhi.model.TimeSeries;
+import se.norrland.best_weather.clients.met.model.Units;
 
 import java.time.LocalDateTime;
 
@@ -62,8 +61,32 @@ public class MetClient implements ForecastHandler<Met> {
         return null;
     }
 
+    // exempel från GPT40, makes any sence?
+//    @Override
+//    public Temperature extractTemperature(Met met) {
+//        for (Timeseries timeseries : met.getProperties().getTimeseries()) {
+//            Details details = timeseries.getData().getInstant().getDetails();
+//            if (details.getAdditionalProperties().containsKey("air_temperature")) {
+//                Double temperatureValue = details.getAirTemperature();
+//                return new Temperature(temperatureValue);
+//            }
+//        }
+//        return null;
+//    }
+
     @Override
     public Humidity extractHumidity(Met met) {
+        for (Timeseries timeseries : met.getProperties().getTimeseries()) {
+            Details details = timeseries.getData().getInstant().getDetails();
+
+            if (details.getAdditionalProperties().containsKey("relative_humidity")) {
+                Double humidityValue = details.getRelativeHumidity();
+                Units units = met.getProperties().getMeta().getUnits();
+                String humidityUnit = units.getRelativeHumidity();
+
+                return new Humidity(humidityValue, humidityUnit);
+            }
+        }
         return null;
     }
 

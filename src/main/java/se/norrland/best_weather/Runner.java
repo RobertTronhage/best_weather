@@ -1,6 +1,5 @@
 package se.norrland.best_weather;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import se.norrland.best_weather.clients.domain.Humidity;
