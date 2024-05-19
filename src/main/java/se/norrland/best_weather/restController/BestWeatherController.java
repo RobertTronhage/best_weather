@@ -1,9 +1,8 @@
 package se.norrland.best_weather.restController;
 
-import org.springframework.web.bind.annotation.RestController;
-import se.norrland.best_weather.util.dateTimeFormatter;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 public class BestWeatherController {
 //    private final BestWeatherService bestWeatherService;
 //
