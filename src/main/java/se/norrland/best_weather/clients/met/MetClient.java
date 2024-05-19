@@ -15,10 +15,9 @@ import se.norrland.best_weather.clients.met.model.Details;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.met.model.Timeseries;
 import se.norrland.best_weather.clients.met.model.Units;
-
 import java.time.LocalDateTime;
 
-import static io.netty.handler.codec.rtsp.RtspHeaders.Values.URL;
+
 
 @Component
 public class MetClient implements ForecastHandler<Met> {

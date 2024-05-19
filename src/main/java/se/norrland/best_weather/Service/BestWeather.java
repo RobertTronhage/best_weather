@@ -1,6 +1,4 @@
-package se.norrland.best_weather.Service;
-
-import org.springframework.context.annotation.Bean;
+package se.norrland.best_weather.service;
 
 public class BestWeather {
     private String origin;
