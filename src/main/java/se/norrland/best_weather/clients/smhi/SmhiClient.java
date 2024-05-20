@@ -6,10 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import se.norrland.best_weather.clients.domain.Humidity;
-import se.norrland.best_weather.clients.domain.Temperature;
-import se.norrland.best_weather.clients.domain.WeatherInfo;
-import se.norrland.best_weather.clients.domain.WeatherSrc;
+
 import se.norrland.best_weather.clients.ForecastHandler;
 import se.norrland.best_weather.clients.smhi.model.Parameter;
 import se.norrland.best_weather.clients.smhi.model.Smhi;
@@ -19,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
-public class SmhiClient implements ForecastHandler<Smhi> {
+public class SmhiClient implements ForecastHandler<Smhi>{
 
     private static final String URL = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.0300/lat/59.3110/data.json";
     private final WebClient client;
@@ -43,39 +40,13 @@ public class SmhiClient implements ForecastHandler<Smhi> {
     }
 
     @Override
-    public WeatherInfo makeForecast() {
-        Smhi smhiData = getSmhiData();
-        if (smhiData != null) {
-            Temperature temperature = extractTemperature(smhiData);
-            Humidity humidity = extractHumidity(smhiData);
-            if (temperature != null && humidity != null) {
-                return new WeatherInfo(WeatherSrc.SMHI, temperature, humidity, LocalDateTime.now());
-            }
-        }
-        return null;
+    public double extractTemperature(Smhi data) {
+        return 0;
     }
 
-    public Temperature extractTemperature(Smhi smhi) {
-        for (TimeSeries timeSeries : smhi.getTimeSeries()) {
-            for (Parameter parameter : timeSeries.getParameters()) {
-                if ("t".equals(parameter.getName())) {
-                    Double temperatureValue = Double.valueOf(parameter.getValues().get(0));
-                    return new Temperature(temperatureValue);
-                }
-            }
-        }
-        return null;
+    @Override
+    public double extractHumidity(Smhi data) {
+        return 12;
     }
 
-    public Humidity extractHumidity(Smhi smhi) {
-        for (TimeSeries timeSeries : smhi.getTimeSeries()) {
-            for (Parameter parameter : timeSeries.getParameters()) {
-                if ("r".equals(parameter.getName())) {
-                    Double humidityValue = Double.valueOf(parameter.getValues().get(0));
-                    return new Humidity(humidityValue, "percent");
-                }
-            }
-        }
-        return null;
-    }
 }

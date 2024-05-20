@@ -19,17 +19,14 @@ public class MeteoClient implements ForecastHandler<Meteo> {
     }
 
     @Override
-    public Temperature extractTemperature(Meteo data) {
-        return null;
+    public double extractTemperature(Meteo data) {
+        return 12;
     }
 
     @Override
-    public Humidity extractHumidity(Meteo data) {
-        return null;
+    public double extractHumidity(Meteo data) {
+        return 12;
     }
 
-    @Override
-    public WeatherInfo makeForecast() {
-        return null;
-    }
+
 }

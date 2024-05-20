@@ -50,14 +50,14 @@ public class MetClient implements ForecastHandler<Met> {
     }
 
     @Override
-    public Temperature extractTemperature(Met met) {
+    public double extractTemperature(Met met) {
         for (Timeseries timeseries : met.getProperties().getTimeseries()) {
             if (timeseries.getData().getInstant().getDetails().getAdditionalProperties().containsKey("air_temperature")) {
                 Double temperatureValue = timeseries.getData().getInstant().getDetails().getAirTemperature();
-                return new Temperature(temperatureValue);
+                return temperatureValue;
             }
         }
-        return null;
+        return 12;
     }
 
     // exempel från GPT40, makes any sence?
@@ -74,7 +74,7 @@ public class MetClient implements ForecastHandler<Met> {
 //    }
 
     @Override
-    public Humidity extractHumidity(Met met) {
+    public double extractHumidity(Met met) {
         for (Timeseries timeseries : met.getProperties().getTimeseries()) {
             Details details = timeseries.getData().getInstant().getDetails();
 
@@ -83,22 +83,9 @@ public class MetClient implements ForecastHandler<Met> {
                 Units units = met.getProperties().getMeta().getUnits();
                 String humidityUnit = units.getRelativeHumidity();
 
-                return new Humidity(humidityValue, humidityUnit);
+                return humidityValue;
             }
         }
-        return null;
-    }
-
-    @Override
-    public WeatherInfo makeForecast() {
-        Met metData = getMetData();
-        if (metData != null) {
-            Temperature temperature = extractTemperature(metData);
-            Humidity humidity = extractHumidity(metData);
-            if (temperature != null && humidity != null) {
-                return new WeatherInfo(WeatherSrc.SMHI, temperature, humidity, LocalDateTime.now());
-            }
-        }
-        return null;
+        return 12;
     }
 }

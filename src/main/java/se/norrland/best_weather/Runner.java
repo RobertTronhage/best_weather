@@ -2,10 +2,6 @@ package se.norrland.best_weather;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import se.norrland.best_weather.clients.domain.Humidity;
-import se.norrland.best_weather.clients.domain.Temperature;
-import se.norrland.best_weather.clients.domain.WeatherInfo;
-import se.norrland.best_weather.clients.domain.WeatherSrc;
 import se.norrland.best_weather.clients.met.MetClient;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.smhi.SmhiClient;
@@ -27,17 +23,7 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         Smhi smhi = client.getSmhiData();
-        Temperature temp = client.extractTemperature(smhi);
-        Humidity humidity = client.extractHumidity(smhi);
-        System.out.println(temp);
 
-        WeatherInfo weatherInfo = new WeatherInfo(WeatherSrc.SMHI, temp, humidity, LocalDateTime.now());
-        System.out.println(weatherInfo);
-
-        Met met = metClient.getMetData();
-        Temperature mtemp = metClient.extractTemperature(met);
-
-        System.out.println(mtemp);
 
     }
 }

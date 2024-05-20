@@ -1,15 +1,12 @@
 package se.norrland.best_weather.clients;
 
-import se.norrland.best_weather.clients.domain.Humidity;
-import se.norrland.best_weather.clients.domain.Temperature;
-import se.norrland.best_weather.clients.domain.WeatherInfo;
+
 import se.norrland.best_weather.clients.smhi.model.Smhi;
+import se.norrland.best_weather.service.BestWeather;
 
 public interface ForecastHandler<T> {
 
-    Temperature extractTemperature(T data);
+    double extractTemperature(T data);
 
-    Humidity extractHumidity(T data);
-
-    WeatherInfo makeForecast();
+    double extractHumidity(T data);
 }
