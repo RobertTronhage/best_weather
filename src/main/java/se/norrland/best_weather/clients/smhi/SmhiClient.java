@@ -6,28 +6,26 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import se.norrland.best_weather.util.DateTimeFormatter;
 import se.norrland.best_weather.clients.ForecastHandler;
 import se.norrland.best_weather.clients.smhi.model.Parameter;
 import se.norrland.best_weather.clients.smhi.model.Smhi;
 import se.norrland.best_weather.clients.smhi.model.TimeSeries;
-
+import java.time.format.DateTimeFormatter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Component
 public class SmhiClient implements ForecastHandler<Smhi> {
 
-    private static final String URL = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.0300/lat/59.3110/data.json";
+    private static final String GET_URI = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.0300/lat/59.3110/data.json";
     private final WebClient client;
 
     @Autowired
     public SmhiClient(WebClient.Builder webClientBuilder) {
         this.client = webClientBuilder
-                .baseUrl(URL)
+                .baseUrl(GET_URI)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
@@ -35,7 +33,7 @@ public class SmhiClient implements ForecastHandler<Smhi> {
     public SmhiData getSmhiData() {
         Mono<Smhi> mono = client
                 .get()
-                .uri(URL)
+                .uri(GET_URI)
                 .retrieve()
                 .bodyToMono(Smhi.class);
 
@@ -48,7 +46,7 @@ public class SmhiClient implements ForecastHandler<Smhi> {
 
         for (TimeSeries t : smhi.getTimeSeries()) {
             try {
-                LocalDateTime time = LocalDateTime.parse(t.getValidTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
+                LocalDateTime time = LocalDateTime.parse(t.getValidTime(), DateTimeFormatter.ISO_ZONED_DATE_TIME);
                 long difference = Math.abs(time.until(in24Hours, ChronoUnit.SECONDS));
                 if (difference < minDifference) {
                     minDifference = difference;

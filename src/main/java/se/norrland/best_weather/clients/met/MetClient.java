@@ -11,8 +11,14 @@ import se.norrland.best_weather.clients.met.model.Details;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.met.model.Timeseries;
 import se.norrland.best_weather.clients.met.model.Units;
-import java.time.LocalDateTime;
+import se.norrland.best_weather.clients.smhi.SmhiData;
+import se.norrland.best_weather.clients.smhi.model.Parameter;
+import se.norrland.best_weather.clients.smhi.model.Smhi;
+import se.norrland.best_weather.clients.smhi.model.TimeSeries;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 
 @Component
@@ -35,16 +41,49 @@ public class MetClient implements ForecastHandler<Met> {
         this.client = client;
     }
 
-    public Met getMetData() {
+    public MetData getMetData() {
         Mono<Met> mono = client
                 .get()
                 .uri(GET_URI)
                 .retrieve()
                 .bodyToMono(Met.class);
 
-        return mono.block();
+        Met met = mono.block();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime in24Hours = now.plusHours(24);
 
+        Timeseries closestTimeSeries = null;
+        long minDifference = Long.MAX_VALUE;
 
+        for (Timeseries t : met.getProperties().getTimeseries()) {
+            try {
+                LocalDateTime time = LocalDateTime.parse(t.getTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
+                long difference = Math.abs(time.until(in24Hours, ChronoUnit.SECONDS));
+                if (difference < minDifference) {
+                    minDifference = difference;
+                    closestTimeSeries = t;
+                }
+            } catch (DateTimeParseException e) {
+                System.err.println("Error parsing date time: " + t.getTime());
+            }
+        }
+
+        if (closestTimeSeries == null) {
+            System.out.println("No measurement found close to 24 hours from now.");
+            return null;
+        }
+
+        double temp = closestTimeSeries.getData().getInstant().getDetails().getAirTemperature();
+        double humidity = closestTimeSeries.getData().getInstant().getDetails().getRelativeHumidity();
+
+        MetData metData = new MetData();
+        LocalDateTime time = LocalDateTime.parse(closestTimeSeries.getTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
+
+        metData.setHumidity(humidity);
+        metData.setValidTime(time);
+        metData.setTemperature(temp);
+
+        return metData;
     }
 
     @Override
