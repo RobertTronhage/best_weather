@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Liljeholmen best weather</title>
-
 </head>
 
 <body>
+    <div class="container">
+        <h2>Optimala vädret för Liljeholmen:</h2>
 
-<div class="container">
-
-    <h1>Optimal weather for Liljeholmen:</h1>
-
-    <p><span th:text="${weather}"></span></p>
-
-</div>
+        <p>Källa: <span th:text="${origin}"></span></p>
+        <p>Datum och tid: <span th:text="${time}"></span></p>
+        <p>Temperatur: <span th:text="${temp}"></span> °C</p>
+        <p>Relativ luftfuktighet: <span th:text="${humidity}"></span>%</p>
+    </div>
 </body>
 </html>
