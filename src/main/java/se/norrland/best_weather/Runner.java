@@ -1,7 +1,10 @@
 package se.norrland.best_weather;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import se.norrland.best_weather.Service.BestWeatherService;
+import se.norrland.best_weather.clients.WeatherData;
 import se.norrland.best_weather.clients.met.MetClient;
 import se.norrland.best_weather.clients.met.MetData;
 import se.norrland.best_weather.clients.met.model.Met;
@@ -19,11 +22,16 @@ public class Runner implements CommandLineRunner {
     private final SmhiClient client;
     private final MetClient metClient;
     private final MeteoClient meteoClient;
+    private final BestWeatherService bestWeatherService;
 
-    public Runner(SmhiClient client, MetClient metClient, MeteoClient meteoClient) {
+//    private final WeatherData weatherData;
+
+    public Runner(SmhiClient client, MetClient metClient, MeteoClient meteoClient, BestWeatherService bestWeatherService) {
         this.client = client;
         this.metClient = metClient;
         this.meteoClient = meteoClient;
+        this.bestWeatherService = bestWeatherService;
+//        this.weatherData = weatherData;
     }
 
     @Override
@@ -37,6 +45,13 @@ public class Runner implements CommandLineRunner {
 
         MeteoData meData = meteoClient.getMeteoData();
         System.out.println(meData);
+
+//        double temp = bestWeatherService.calcHighestTemp(data.getTemperature(),mdata.getTemperature(),meData.getTemperature());
+//
+//        System.out.println(temp);
+
+        System.out.println(bestWeatherService.getBestWeather());
+
 
     }
 }

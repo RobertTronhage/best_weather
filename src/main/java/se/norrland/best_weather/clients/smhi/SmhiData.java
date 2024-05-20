@@ -1,11 +1,15 @@
 package se.norrland.best_weather.clients.smhi;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import se.norrland.best_weather.clients.WeatherData;
 
 import java.time.LocalDateTime;
 
 @Component
-public class SmhiData {
+@Qualifier("smhiData")
+public class SmhiData implements WeatherData {
 
     private String provider = "smhi";
 
@@ -25,10 +29,12 @@ public class SmhiData {
         this.validTime = validTime;
     }
 
+    @Override
     public String getProvider() {
         return provider;
     }
 
+    @Override
     public double getTemperature() {
         return temperature;
     }
@@ -37,6 +43,7 @@ public class SmhiData {
         this.temperature = temperature;
     }
 
+    @Override
     public double getHumidity() {
         return humidity;
     }
@@ -45,6 +52,7 @@ public class SmhiData {
         this.humidity = humidity;
     }
 
+    @Override
     public LocalDateTime getValidTime() {
         return validTime;
     }

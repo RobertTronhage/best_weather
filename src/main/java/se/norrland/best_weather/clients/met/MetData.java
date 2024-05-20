@@ -1,11 +1,15 @@
 package se.norrland.best_weather.clients.met;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import se.norrland.best_weather.clients.WeatherData;
 
 import java.time.LocalDateTime;
 
 @Component
-public class MetData {
+@Qualifier("metData")
+public class MetData implements WeatherData {
+
 
     private String provider = "Met";
     private double temperature;
@@ -22,10 +26,12 @@ public class MetData {
         this.validTime = validTime;
     }
 
+    @Override
     public String getProvider() {
         return provider;
     }
 
+    @Override
     public double getTemperature() {
         return temperature;
     }
@@ -34,6 +40,7 @@ public class MetData {
         this.temperature = temperature;
     }
 
+    @Override
     public double getHumidity() {
         return humidity;
     }
@@ -42,6 +49,7 @@ public class MetData {
         this.humidity = humidity;
     }
 
+    @Override
     public LocalDateTime getValidTime() {
         return validTime;
     }
