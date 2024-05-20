@@ -1,20 +1,14 @@
 package se.norrland.best_weather;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import se.norrland.best_weather.Service.BestWeatherService;
-import se.norrland.best_weather.clients.WeatherData;
 import se.norrland.best_weather.clients.met.MetClient;
 import se.norrland.best_weather.clients.met.MetData;
-import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.meteo.MeteoClient;
 import se.norrland.best_weather.clients.meteo.MeteoData;
 import se.norrland.best_weather.clients.smhi.SmhiClient;
 import se.norrland.best_weather.clients.smhi.SmhiData;
-import se.norrland.best_weather.clients.smhi.model.Smhi;
-
-import java.time.LocalDateTime;
+import se.norrland.best_weather.service.BestWeatherService;
 
 @Component
 public class Runner implements CommandLineRunner {

@@ -6,15 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import se.norrland.best_weather.clients.ForecastHandler;
 import se.norrland.best_weather.clients.met.model.Details;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.met.model.Timeseries;
 import se.norrland.best_weather.clients.met.model.Units;
-import se.norrland.best_weather.clients.smhi.SmhiData;
-import se.norrland.best_weather.clients.smhi.model.Parameter;
-import se.norrland.best_weather.clients.smhi.model.Smhi;
-import se.norrland.best_weather.clients.smhi.model.TimeSeries;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -22,7 +17,7 @@ import java.time.temporal.ChronoUnit;
 
 
 @Component
-public class MetClient implements ForecastHandler<Met> {
+public class MetClient {
 
     private static final String GET_URI = "https://api.met.no/weatherapi/locationforecast/2.0/" +
             "compact?lat=59.3110&lon=18.0300";
@@ -86,7 +81,6 @@ public class MetClient implements ForecastHandler<Met> {
         return metData;
     }
 
-    @Override
     public double extractTemperature(Met met) {
         for (Timeseries timeseries : met.getProperties().getTimeseries()) {
             if (timeseries.getData().getInstant().getDetails().getAdditionalProperties().containsKey("air_temperature")) {
@@ -110,7 +104,6 @@ public class MetClient implements ForecastHandler<Met> {
 //        return null;
 //    }
 
-    @Override
     public double extractHumidity(Met met) {
         for (Timeseries timeseries : met.getProperties().getTimeseries()) {
             Details details = timeseries.getData().getInstant().getDetails();

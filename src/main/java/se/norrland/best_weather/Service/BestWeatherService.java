@@ -1,17 +1,11 @@
-package se.norrland.best_weather.Service;
+package se.norrland.best_weather.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.norrland.best_weather.Service.BestWeather;
-import se.norrland.best_weather.clients.ForecastHandler;
 import se.norrland.best_weather.clients.WeatherData;
 import se.norrland.best_weather.clients.met.MetClient;
-import se.norrland.best_weather.clients.met.MetData;
 import se.norrland.best_weather.clients.meteo.MeteoClient;
-import se.norrland.best_weather.clients.meteo.MeteoData;
-import se.norrland.best_weather.clients.smhi.SmhiData;
 import se.norrland.best_weather.clients.smhi.SmhiClient;
-import se.norrland.best_weather.clients.smhi.model.Smhi;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,26 +13,18 @@ import java.util.List;
 @Service
 public class BestWeatherService {
 
-//    private final List<ForecastHandler> forecastHandlers;
-
     private final SmhiClient smhiClient;
-
     private final MetClient metClient;
-
     private final MeteoClient meteoClient;
 
     @Autowired
     public BestWeatherService(SmhiClient smhiClient, MetClient metClient, MeteoClient meteoClient) {
-//        this.forecastHandlers = forecastHandlers;
         this.smhiClient = smhiClient;
         this.metClient = metClient;
         this.meteoClient = meteoClient;
     }
 
-    // Get weather forecasts from all available forecast handlers
-    // and return the best one using if-else statements
-
-//    public BestWeather getBestWeather() {
+    //    public BestWeather getBestWeather() {
 //
 //        BestWeather bestWeather = new BestWeather();
 //
