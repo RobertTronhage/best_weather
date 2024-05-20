@@ -2,9 +2,6 @@ package se.norrland.best_weather.clients.meteo;
 
 import org.springframework.web.reactive.function.client.WebClient;
 import se.norrland.best_weather.clients.ForecastHandler;
-import se.norrland.best_weather.clients.domain.Humidity;
-import se.norrland.best_weather.clients.domain.Temperature;
-import se.norrland.best_weather.clients.domain.WeatherInfo;
 import se.norrland.best_weather.clients.meteo.model.Meteo;
 
 public class MeteoClient implements ForecastHandler<Meteo> {

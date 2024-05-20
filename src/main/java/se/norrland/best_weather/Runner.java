@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import se.norrland.best_weather.clients.met.MetClient;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.smhi.SmhiClient;
+import se.norrland.best_weather.clients.smhi.SmhiData;
 import se.norrland.best_weather.clients.smhi.model.Smhi;
 
 import java.time.LocalDateTime;
@@ -22,8 +23,9 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Smhi smhi = client.getSmhiData();
 
+        SmhiData data = client.getSmhiData();
+        System.out.println(data);
 
     }
 }

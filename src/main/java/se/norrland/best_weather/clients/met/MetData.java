@@ -1,24 +1,21 @@
-package se.norrland.best_weather.clients.smhi;
+package se.norrland.best_weather.clients.met;
 
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Component
-public class SmhiData {
+public class MetData {
 
-    private String provider = "smhi";
-
+    private String provider = "Met";
     private double temperature;
-
     private double humidity;
-
     private LocalDateTime validTime;
 
-    public SmhiData() {
+    public MetData() {
     }
 
-    public SmhiData(String provider, double temperature, double humidity, LocalDateTime validTime) {
+    public MetData(String provider, double temperature, double humidity, LocalDateTime validTime) {
         this.provider = provider;
         this.temperature = temperature;
         this.humidity = humidity;

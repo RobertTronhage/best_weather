@@ -27,9 +27,9 @@ public class BestWeatherService {
 
     public BestWeather getBestWeather() {
 
-        Smhi smhi = smhiClient.getSmhiData();
-        double smhiTemp = smhiClient.extractTemperature(smhi);
-        double humidity = smhiClient.extractHumidity(smhi);
+//        Smhi smhi = smhiClient.getSmhiData();
+//        double smhiTemp = smhiClient.extractTemperature(smhi);
+//        double humidity = smhiClient.extractHumidity(smhi);
 
 //        BestWeather bestWeather = calcHighestTemp(smhiTemp)
 

@@ -7,10 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import se.norrland.best_weather.clients.ForecastHandler;
-import se.norrland.best_weather.clients.domain.Humidity;
-import se.norrland.best_weather.clients.domain.Temperature;
-import se.norrland.best_weather.clients.domain.WeatherInfo;
-import se.norrland.best_weather.clients.domain.WeatherSrc;
 import se.norrland.best_weather.clients.met.model.Details;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.met.model.Timeseries;
@@ -47,6 +43,8 @@ public class MetClient implements ForecastHandler<Met> {
                 .bodyToMono(Met.class);
 
         return mono.block();
+
+
     }
 
     @Override

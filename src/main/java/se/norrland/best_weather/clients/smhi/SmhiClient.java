@@ -6,17 +6,20 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-
+import se.norrland.best_weather.util.DateTimeFormatter;
 import se.norrland.best_weather.clients.ForecastHandler;
 import se.norrland.best_weather.clients.smhi.model.Parameter;
 import se.norrland.best_weather.clients.smhi.model.Smhi;
 import se.norrland.best_weather.clients.smhi.model.TimeSeries;
 
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Component
-public class SmhiClient implements ForecastHandler<Smhi>{
+public class SmhiClient implements ForecastHandler<Smhi> {
 
     private static final String URL = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.0300/lat/59.3110/data.json";
     private final WebClient client;
@@ -29,14 +32,57 @@ public class SmhiClient implements ForecastHandler<Smhi>{
                 .build();
     }
 
-    public Smhi getSmhiData() {
+    public SmhiData getSmhiData() {
         Mono<Smhi> mono = client
                 .get()
                 .uri(URL)
                 .retrieve()
                 .bodyToMono(Smhi.class);
 
-        return mono.block();
+        Smhi smhi = mono.block();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime in24Hours = now.plusHours(24);
+
+        TimeSeries closestTimeSeries = null;
+        long minDifference = Long.MAX_VALUE;
+
+        for (TimeSeries t : smhi.getTimeSeries()) {
+            try {
+                LocalDateTime time = LocalDateTime.parse(t.getValidTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
+                long difference = Math.abs(time.until(in24Hours, ChronoUnit.SECONDS));
+                if (difference < minDifference) {
+                    minDifference = difference;
+                    closestTimeSeries = t;
+                }
+            } catch (DateTimeParseException e) {
+                System.err.println("Error parsing date time: " + t.getValidTime());
+            }
+        }
+
+        if (closestTimeSeries == null) {
+            System.out.println("No measurement found close to 24 hours from now.");
+            return null;
+        }
+
+        double temp = 0;
+        double humidity = 0;
+
+        for (Parameter parameter : closestTimeSeries.getParameters()) {
+            if ("t".equals(parameter.getName())) {
+                temp = parameter.getValues().get(0);
+            } else if ("r".equals(parameter.getName())) {
+                humidity = parameter.getValues().get(0);
+            }
+        }
+
+        SmhiData smhiData = new SmhiData();
+        LocalDateTime time = LocalDateTime.parse(closestTimeSeries.getValidTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
+
+        smhiData.setHumidity(humidity);
+        smhiData.setValidTime(time);
+        smhiData.setTemperature(temp);
+
+        return smhiData;
     }
 
     @Override
@@ -45,8 +91,8 @@ public class SmhiClient implements ForecastHandler<Smhi>{
     }
 
     @Override
-    public double extractHumidity(Smhi data) {
-        return 12;
-    }
+        public double extractHumidity (Smhi data){
+            return 12;
+        }
 
-}
+    }
