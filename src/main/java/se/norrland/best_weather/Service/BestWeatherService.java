@@ -17,6 +17,9 @@ public class BestWeatherService {
         this.forecastHandlers = forecastHandlers;
     }
 
+    // Get weather forecasts from all available forecast handlers
+    // and return the best one using if-else statements
+
     public WeatherInfo getBestWeather() {
         WeatherInfo bestWeather = null;
 
