@@ -7,7 +7,7 @@ import se.norrland.best_weather.service.BestWeather;
 import se.norrland.best_weather.service.BestWeatherService;
 
 @RestController
-@RequestMapping("/rs")
+@RequestMapping("/weather")
 public class BestWeatherRESTController {
 
     private final BestWeatherService bestWeatherService;
@@ -16,7 +16,7 @@ public class BestWeatherRESTController {
         this.bestWeatherService = bestWeatherService;
     }
 
-    @GetMapping("/best-weather")
+    @GetMapping("/liljeholmen")
     public BestWeather getBestWeather() {
         return bestWeatherService.getBestWeather();
     }
