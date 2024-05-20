@@ -1,4 +1,4 @@
-package se.norrland.best_weather.Service;
+package se.norrland.best_weather.service;
 
 public class BestWeather {
     private String origin;

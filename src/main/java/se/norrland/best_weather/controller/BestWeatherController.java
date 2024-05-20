@@ -3,6 +3,7 @@ package se.norrland.best_weather.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import se.norrland.best_weather.clients.WeatherData;
 import se.norrland.best_weather.service.BestWeather;
 import se.norrland.best_weather.service.BestWeatherService;
 import se.norrland.best_weather.util.DateTimeFormatter;
@@ -18,8 +19,11 @@ public class BestWeatherController {
 
     @GetMapping("/best-weather")
     public String getBestWeather(Model model) {
-        //model.addAttribute("dateTime", ()); ???
-        model.addAttribute("bestWeather", bestWeatherService.getBestWeather());
+        BestWeather bestWeather = bestWeatherService.getBestWeather();
+        model.addAttribute("origin", bestWeather.getOrigin());
+        model.addAttribute("time", bestWeather.getTimestamp());
+        model.addAttribute("temp", bestWeather.getTemp());
+        model.addAttribute("humidity", bestWeather.getHumidity());
         return "weather";
     }
 }
