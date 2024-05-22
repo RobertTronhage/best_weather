@@ -24,35 +24,6 @@ public class BestWeatherService {
         this.meteoClient = meteoClient;
     }
 
-    //    public BestWeather getBestWeather() {
-//
-//        BestWeather bestWeather = new BestWeather();
-//
-//        SmhiData smhi = smhiClient.getSmhiData();
-//        MetData met = metClient.getMetData();
-//        MeteoData meteo = meteoClient.getMeteoData();
-//
-//        double highestTemp = calcHighestTemp(smhi.getTemperature(),met.getTemperature(),meteo.getTemperature());
-//
-//        if (smhi.getTemperature()==highestTemp){
-//            bestWeather.setHumidity(smhi.getHumidity());
-//            bestWeather.setTemp(smhi.getTemperature());
-//            bestWeather.setOrigin(smhi.getProvider());
-//            bestWeather.setTimestamp(smhi.getValidTime().toString());
-//        } else if (met.getTemperature() == highestTemp) {
-//            bestWeather.setHumidity(met.getHumidity());
-//            bestWeather.setTemp(met.getTemperature());
-//            bestWeather.setOrigin(met.getProvider());
-//            bestWeather.setTimestamp(met.getValidTime().toString());
-//        }else {
-//            bestWeather.setHumidity(meteo.getHumidity());
-//            bestWeather.setTemp(meteo.getTemperature());
-//            bestWeather.setOrigin(meteo.getProvider());
-//            bestWeather.setTimestamp(meteo.getValidTime().toString());
-//        }
-//
-//        return null;
-//    }
 
     public BestWeather getBestWeather() {
         List<WeatherData> weatherDataList = List.of(
