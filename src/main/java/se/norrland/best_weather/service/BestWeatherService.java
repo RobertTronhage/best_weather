@@ -24,7 +24,6 @@ public class BestWeatherService {
         this.meteoClient = meteoClient;
     }
 
-
     public BestWeather getBestWeather() {
         List<WeatherData> weatherDataList = List.of(
                 smhiClient.getSmhiData(),
@@ -45,14 +44,15 @@ public class BestWeatherService {
         return bestWeather;
     }
 
-    public double calcHighestTemp(double smhi,double MET, double METEO){
+//    public double calcHighestTemp(double smhi,double MET, double METEO){
+//
+//        if (smhi > MET && smhi > METEO){
+//            return smhi;
+//        }else if (MET > smhi && MET > METEO){
+//            return MET;
+//        }else {
+//            return METEO;
+//        }
+//    }
 
-        if (smhi > MET && smhi > METEO){
-            return smhi;
-        }else if (MET > smhi && MET > METEO){
-            return MET;
-        }else {
-            return METEO;
-        }
-    }
 }

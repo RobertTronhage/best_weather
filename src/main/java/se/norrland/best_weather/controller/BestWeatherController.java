@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import se.norrland.best_weather.clients.WeatherData;
 import se.norrland.best_weather.service.BestWeather;
 import se.norrland.best_weather.service.BestWeatherService;
-import se.norrland.best_weather.util.DateTimeFormatter;
 
 @Controller
 public class BestWeatherController {
