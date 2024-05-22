@@ -38,4 +38,14 @@ public class BestWeather {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "origin='" + origin + '\'' +
+                ", temp=" + temp +
+                ", humidity=" + humidity +
+                " % , timestamp='" + timestamp + '\'' +
+                '}';
+    }
 }
