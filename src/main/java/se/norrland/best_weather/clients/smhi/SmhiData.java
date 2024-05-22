@@ -11,14 +11,10 @@ import java.time.LocalDateTime;
 @Qualifier("smhiData")
 public class SmhiData implements WeatherData {
 
-    private String provider = "smhi";
-
+    private String provider = "Smhi";
     private double temperature;
-
     private double humidity;
-
     private LocalDateTime validTime;
-
     public SmhiData() {
     }
 

@@ -41,9 +41,6 @@ public class MeteoClient {
         LocalDateTime in24Hours = now.plusHours(24);
         double temperature = 0;
 
-        TimeSeries closestTimeSeries = null;
-        long minDifference = Long.MAX_VALUE;
-
         MeteoData meteoData = new MeteoData();
 
         if (meteo != null && meteo.getHourly() != null) {

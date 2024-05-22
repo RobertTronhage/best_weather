@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 @Component
 @Qualifier("metData")
 public class MetData implements WeatherData {
-
-
     private String provider = "Met";
     private double temperature;
     private double humidity;
