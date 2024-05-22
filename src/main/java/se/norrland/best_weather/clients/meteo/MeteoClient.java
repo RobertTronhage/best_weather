@@ -6,23 +6,17 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import se.norrland.best_weather.clients.ForecastHandler;
 import se.norrland.best_weather.clients.meteo.model.Meteo;
-import se.norrland.best_weather.clients.smhi.SmhiData;
-import se.norrland.best_weather.clients.smhi.model.Parameter;
-import se.norrland.best_weather.clients.smhi.model.Smhi;
 import se.norrland.best_weather.clients.smhi.model.TimeSeries;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Component
-public class MeteoClient implements ForecastHandler<Meteo> {
+public class MeteoClient {
 
-    private static final String GET_URI = "https://api.open-meteo.com/v1/meteofrance?" +
+    private static final String GET_URI = "https://api.open-meteo.com/v1/forecast?" +
             "latitude=59.3094&longitude=18.0234&hourly=temperature_2m,relative_humidity_2m&forecast_days=3";
 
     private final WebClient client;
@@ -75,18 +69,6 @@ public class MeteoClient implements ForecastHandler<Meteo> {
         } else {
             System.out.println("No current weather data available.");
         }
-
         return meteoData;
     }
-
-    @Override
-    public double extractTemperature(Meteo data) {
-        return 12;
-    }
-    @Override
-    public double extractHumidity(Meteo data) {
-        return 12;
-    }
-
-
 }
