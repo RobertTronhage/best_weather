@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import se.norrland.best_weather.clients.meteo.model.Meteo;
 import se.norrland.best_weather.clients.smhi.model.TimeSeries;
+import se.norrland.best_weather.service.BestWeather;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,7 @@ public class MeteoClient {
                 .build();
     }
 
-    public MeteoData getMeteoData() {
+    public BestWeather getMeteoData() {
         Mono<Meteo> mono = client
                 .get()
                 .uri(GET_URI)
@@ -41,9 +42,10 @@ public class MeteoClient {
         LocalDateTime in24Hours = now.plusHours(24);
         double temperature = 0;
 
-        MeteoData meteoData = new MeteoData();
+        BestWeather meteoData = new BestWeather();
 
         if (meteo != null && meteo.getHourly() != null) {
+
             List<String> times = meteo.getHourly().getTime();
             List<Integer> temperatures = meteo.getHourly().getTemperature2m();
             List<Integer> humidities = meteo.getHourly().getRelativeHumidity2m();
@@ -52,11 +54,13 @@ public class MeteoClient {
 
                 for (int i = 0; i < times.size(); i++) {
                     LocalDateTime time = LocalDateTime.parse(times.get(i), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
                     if (!time.isBefore(in24Hours)) {
                         temperature = (double) temperatures.get(i);
-                        meteoData.setValidTime(in24Hours);
+                        meteoData.setTimestamp(in24Hours.toString());
                         meteoData.setHumidity((double) humidities.get(i));
-                        meteoData.setTemperature(temperature);
+                        meteoData.setTemp(temperature);
+                        meteoData.setOrigin("Meteo");
                         break;
                     }
                 }

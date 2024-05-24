@@ -2,7 +2,6 @@ package se.norrland.best_weather.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import se.norrland.best_weather.clients.WeatherData;
 import se.norrland.best_weather.clients.met.MetClient;
 import se.norrland.best_weather.clients.meteo.MeteoClient;
 import se.norrland.best_weather.clients.smhi.SmhiClient;
@@ -25,34 +24,16 @@ public class BestWeatherService {
     }
 
     public BestWeather getBestWeather() {
-        List<WeatherData> weatherDataList = List.of(
+        List<BestWeather> weatherDataList = List.of(
                 smhiClient.getSmhiData(),
                 metClient.getMetData(),
                 meteoClient.getMeteoData()
         );
 
-        WeatherData bestWeatherData = weatherDataList.stream()
-                .max(Comparator.comparingDouble(WeatherData::getTemperature))
+         BestWeather bestWeatherData = weatherDataList.stream()
+                .max(Comparator.comparingDouble(BestWeather::getTemp))
                 .orElseThrow(() -> new RuntimeException("No weather data available"));
 
-        BestWeather bestWeather = new BestWeather();
-        bestWeather.setHumidity(bestWeatherData.getHumidity());
-        bestWeather.setTemp(bestWeatherData.getTemperature());
-        bestWeather.setOrigin(bestWeatherData.getProvider());
-        bestWeather.setTimestamp(bestWeatherData.getValidTime().toString());
-
-        return bestWeather;
+        return bestWeatherData;
     }
-
-//    public double calcHighestTemp(double smhi,double MET, double METEO){
-//
-//        if (smhi > MET && smhi > METEO){
-//            return smhi;
-//        }else if (MET > smhi && MET > METEO){
-//            return MET;
-//        }else {
-//            return METEO;
-//        }
-//    }
-
 }

@@ -10,6 +10,7 @@ import se.norrland.best_weather.clients.met.model.Details;
 import se.norrland.best_weather.clients.met.model.Met;
 import se.norrland.best_weather.clients.met.model.Timeseries;
 import se.norrland.best_weather.clients.met.model.Units;
+import se.norrland.best_weather.service.BestWeather;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -36,7 +37,7 @@ public class MetClient {
         this.client = client;
     }
 
-    public MetData getMetData() {
+    public BestWeather getMetData() {
         Mono<Met> mono = client
                 .get()
                 .uri(GET_URI)
@@ -71,12 +72,13 @@ public class MetClient {
         double temp = closestTimeSeries.getData().getInstant().getDetails().getAirTemperature();
         double humidity = closestTimeSeries.getData().getInstant().getDetails().getRelativeHumidity();
 
-        MetData metData = new MetData();
+        BestWeather metData = new BestWeather();
         LocalDateTime time = LocalDateTime.parse(closestTimeSeries.getTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
 
         metData.setHumidity(humidity);
-        metData.setValidTime(time);
-        metData.setTemperature(temp);
+        metData.setTimestamp(time.toString());
+        metData.setTemp(temp);
+        metData.setOrigin("Met Norway");
 
         return metData;
     }

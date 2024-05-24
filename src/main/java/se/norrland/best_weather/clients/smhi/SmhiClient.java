@@ -9,6 +9,8 @@ import reactor.core.publisher.Mono;
 import se.norrland.best_weather.clients.smhi.model.Parameter;
 import se.norrland.best_weather.clients.smhi.model.Smhi;
 import se.norrland.best_weather.clients.smhi.model.TimeSeries;
+import se.norrland.best_weather.service.BestWeather;
+
 import java.time.format.DateTimeFormatter;
 
 import java.time.LocalDateTime;
@@ -31,7 +33,7 @@ public class SmhiClient {
                 .build();
     }
 
-    public SmhiData getSmhiData() {
+    public BestWeather getSmhiData() {
         Mono<Smhi> mono = client
                 .get()
                 .uri(GET_URI)
@@ -74,12 +76,13 @@ public class SmhiClient {
             }
         }
 
-        SmhiData smhiData = new SmhiData();
+        BestWeather smhiData = new BestWeather();
         LocalDateTime time = LocalDateTime.parse(closestTimeSeries.getValidTime(), java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME);
 
         smhiData.setHumidity(humidity);
-        smhiData.setValidTime(time);
-        smhiData.setTemperature(temp);
+        smhiData.setTimestamp(time.toString());
+        smhiData.setTemp(temp);
+        smhiData.setOrigin("Smhi");
 
         return smhiData;
     }
